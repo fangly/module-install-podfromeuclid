@@ -19,13 +19,14 @@ requires 'Getopt::Euclid'   => '0.3.4';
 ###githubmeta;
 
 ###clean_files 'dist have_make LICENSE';
+clean_files 'have_make';
 
-###if ( $Config{make} and can_run( $Config{make} ) ) {
-###  print "I can run '", $Config{make}, "' good\n";
-###  open HAVEMAKE, '>have_make' or die "$!\n";
-###  print HAVEMAKE "meep\n";
-###  close HAVEMAKE;
-###}
+if ( $Config{make} and can_run( $Config{make} ) ) {
+  print "'make' program available: '", $Config{make}, "'\n";
+  open my $out, '>', 'have_make' or die "$!\n";
+  print $out "meep\n";
+  close $out;
+}
 ###makemaker_args(dist => { PREOP => "$^X ./tools/git-log.pl > ./Changes" });
 
 WriteAll();
