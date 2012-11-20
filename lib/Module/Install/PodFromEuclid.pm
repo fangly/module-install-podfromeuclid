@@ -54,7 +54,7 @@ If you use the C<all_from> command, C<pod_from> will default to this value.
 
 =head1 AUTHOR
 
-Florent Angly
+Florent Angly <florent.angly@gmail.com>
 
 =head1 LICENSE
 

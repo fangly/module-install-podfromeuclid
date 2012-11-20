@@ -4,10 +4,12 @@ use inc::Module::Install;
 use Config;
 
 name     'Module-Install-PodFromEuclid';
-author   'Florent Angly <florent.angly@gmail.com>';
 all_from 'lib/Module/Install/PodFromEuclid.pm';
 
-###auto_license holder => 'Florent Angly';
+resources
+   homepage   'http://search.cpan.org/search?query=module-install-podfromeuclid';
+   bugtracker 'https://rt.cpan.org/Public/Dist/Display.html?Name=Module-Install-PodFromEuclid';
+   repository 'git://github.com/fangly/module-install-podfromeuclid.git';
 
 build_requires 'Test::More'    => 0.47; # in Perl 5.6.2
 build_requires 'File::Temp'    => 0;    # in Perl 5.6.1
@@ -18,7 +20,6 @@ requires 'Getopt::Euclid'   => '0.3.4';
 ###readme_from;    # Self hosting!
 ###githubmeta;
 
-###clean_files 'dist have_make LICENSE';
 clean_files 'have_make';
 
 if ( $Config{make} and can_run( $Config{make} ) ) {
@@ -27,6 +28,5 @@ if ( $Config{make} and can_run( $Config{make} ) ) {
   print $out "meep\n";
   close $out;
 }
-###makemaker_args(dist => { PREOP => "$^X ./tools/git-log.pl > ./Changes" });
 
 WriteAll();
