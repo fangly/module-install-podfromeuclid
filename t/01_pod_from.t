@@ -3,21 +3,20 @@ use warnings;
 use Test::More;
 use File::Spec;
 use File::Copy;
-use File::Temp    qw[tempdir];
-use Capture::Tiny qw[capture_merged];
+use File::Temp qw[tempdir];
 use Config;
 
 {
-   my $make = $Config{make};
-   mkdir 'dist';
-   my $tmpdir = tempdir(DIR => 'dist', CLEANUP => 1);
+   my $ori_dir = File::Spec->rel2abs(File::Spec->curdir);
+
+   my $tmpdir = tempdir(DIR => $ori_dir, CLEANUP => 1);
    mkdir File::Spec->catdir($tmpdir, 'script');
+   chdir $tmpdir or die "Chdir failed: $!";
 
-   my $ori  = File::Spec->catfile('t', 'data', 'my_script.pl');
-   my $dest = File::Spec->catfile($tmpdir, 'script', 'my_script.pl');
+
+   my $ori  = File::Spec->catfile($ori_dir, 't', 'data', 'my_script.pl');
+   my $dest = File::Spec->catfile('script', 'my_script.pl');
    copy($ori, $dest) or die "Copy failed: $!";
-
-   chdir $tmpdir or die "$!\n";
 
    open MFPL, '>Makefile.PL' or die "$!\n";
    print MFPL <<EOF;
@@ -33,22 +32,21 @@ WriteAll;
 EOF
    close MFPL;
 
-   my $merged = capture_merged { system "$^X Makefile.PL" };
-   diag("$merged");
-   my @tests = (
-      'inc/Module/Install/PodFromEuclid',
-   );
-   for my $inc (@tests) {
-      ok -f $_, "Exists: '$_'";
-   }
+   system "$^X Makefile.PL";
+   #my $merged = Capture::Tiny->capture_merged {system "$^X Makefile.PL"}; diag("$merged");
 
-   ok -f File::Spec->catfile($tmpdir, 'script', 'my_script.pod'), 'POD file exists';
+   ok -f File::Spec->catfile('inc','Module','Install','PodFromEuclid.pm'), 'PodFromEuclid.pm exists in inc/';
 
-   my $distclean = capture_merged { system "$make distclean" };
-   diag("$distclean");
+   my $pod = File::Spec->catfile('script', 'my_script.pod');
+   ok -f( $pod ), "POD file created: $pod";
 
-   ok -f File::Spec->catfile($tmpdir, 'script', 'my_script.pod'), 'POD file exists';
+   my $make = $Config{make};
+   system "$make distclean";
+   #my $distclean = Capture::Tiny->capture_merged {system "$make distclean"}; diag("$distclean");
 
+   ok -f $pod, 'POD file remains';
+
+   chdir $ori_dir or die "Chdir failed: $!";
 }
 
 done_testing;

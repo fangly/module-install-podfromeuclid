@@ -11,7 +11,6 @@ all_from 'lib/Module/Install/PodFromEuclid.pm';
 
 build_requires 'Test::More'    => 0.47; # in Perl 5.6.2
 build_requires 'File::Temp'    => 0;    # in Perl 5.6.1
-build_requires 'Capture::Tiny' => 0.05;
 
 requires 'Module::Install'  => 1.00;
 requires 'Getopt::Euclid'   => '0.3.4';
