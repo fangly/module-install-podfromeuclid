@@ -1,12 +1,17 @@
-package MyModule;
+#! /usr/bin/env perl
 
-use Getopt::Euclid qw(:minimal_keys :defer);
+use 5.006;
+use strict;
+use warnings;
+use FindBin qw($Bin);
+use lib "$Bin";
+use Getopt::Euclid;
 
 our $VERSION = '0.99';
 
 =head1 NAME
 
-MyModule - This is my module
+MyScript - This is my other script
 
 =head1 REQUIRED ARGUMENTS
 
@@ -36,19 +41,24 @@ Length of simulation. The default is l.default
     l.type:    num
     l.default: 1.2
 
+=back
+
 =head1 AUTHOR
 
 Jane Doe
 
-=head1 LICENSE
-
-Perl
-
-=head2 VERSION
-
-0.99
-
 =cut
 
 
-1;
+sub init {
+   print "Hello, parameters were:\n".
+      "  height: ".$ARGV{-size}{h}."\n".
+      "  width:  ".$ARGV{-size}{w}."\n".
+      "  length: ".$ARGV{-length}."\n";
+}
+
+
+MyModule::init();
+
+exit;
+

@@ -47,8 +47,8 @@ file that has the same base name as the Perl file, using Getopt::Euclid's
 
 If you use the C<all_from> command, C<pod_from> will default to this value.
 
-  all_from 'lib/Some/Module.pm';
-  readme_from; # create lib/Some/Module.pod
+  all_from 'scripts/my_script.pl';
+  pod_from;                         # create scripts/my_script.pod
 
 =back
 

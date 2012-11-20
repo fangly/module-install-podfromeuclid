@@ -2,8 +2,8 @@ use strict;
 use warnings;
 use Getopt::Euclid;
 
-for my $x (1 .. $ARGV{-size}{h}-1) {
-    for my $y (1 .. $ARGV{-size}{w}-1) {
+for my $x (1 .. $ARGV{-size}{h}) {
+    for my $y (1 .. $ARGV{-size}{w}) {
         my $length = $ARGV{-length};
         print "Computing with size $x x $y and length $length\n";
     }

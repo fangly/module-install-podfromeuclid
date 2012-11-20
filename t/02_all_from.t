@@ -10,16 +10,18 @@ use Config;
 {
    # Prepare test
    my $ori_dir = File::Spec->rel2abs(File::Spec->curdir);
-   my $tmpdir = tempdir(DIR => $ori_dir, CLEANUP => 0);
+   my $tmpdir = tempdir(DIR => $ori_dir, CLEANUP => 1);
    chdir $tmpdir or die "Chdir failed: $!";
-   my $ori  = File::Spec->catfile($ori_dir, 't', 'data', 'MyModule.pm');
-   my $dest = 'MyModule.pm';
+   my $ori  = File::Spec->catfile($ori_dir, 't', 'data', 'OtherScript.pl');
+   my $dest = File::Spec->catfile('OtherScript.pl');
    copy($ori, $dest) or die "Copy failed: $!";
    open MFPL, '>Makefile.PL' or die "$!\n";
    print MFPL <<EOF;
 use strict;
 use inc::Module::Install;
-all_from 'MyModule.pm';
+name 'my_script';
+license 'perl';
+all_from 'OtherScript.pl';
 pod_from;
 WriteAll;
 EOF
@@ -29,7 +31,7 @@ EOF
    system "$^X Makefile.PL";
    #my $merged = Capture::Tiny->capture_merged {system "$^X Makefile.PL"}; diag("$merged");
    ok -f File::Spec->catfile('inc','Module','Install','PodFromEuclid.pm'), 'PodFromEuclid.pm exists in inc/';
-   my $pod = 'MyModule.pod';
+   my $pod = 'OtherScript.pod';
    ok -f( $pod ), "POD file created: $pod";
 
    # Run make distclean

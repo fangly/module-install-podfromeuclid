@@ -11,8 +11,8 @@ use Config;
    # Prepare test
    my $ori_dir = File::Spec->rel2abs(File::Spec->curdir);
    my $tmpdir = tempdir(DIR => $ori_dir, CLEANUP => 1);
-   mkdir File::Spec->catdir($tmpdir, 'script');
    chdir $tmpdir or die "Chdir failed: $!";
+   mkdir 'script';
    my $ori  = File::Spec->catfile($ori_dir, 't', 'data', 'my_script.pl');
    my $dest = File::Spec->catfile('script', 'my_script.pl');
    copy($ori, $dest) or die "Copy failed: $!";
