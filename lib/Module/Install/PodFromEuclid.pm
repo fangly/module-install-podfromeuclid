@@ -8,8 +8,7 @@ Getopt::Euclid-based scripts
 
 =head1 SYNOPSIS
 
-  # In Makefile.PL
-
+  # In Makefile.PL:
   use inc::Module::Install;
   author 'John Doe';
   license 'perl';
@@ -22,14 +21,13 @@ a C<POD> file automatically from an indicated script containing Getopt::Euclid
 command-line specifications.
 
 The POD file is generated using the --podfile option of Getopt::Euclid, but only
-whenever authors runs C<Makefile.PL>. While this extension will be bundled in
+whenever authors run C<Makefile.PL>. While this extension will be bundled in
 your distribution, the pod_from command does nothing on the user-side.
 
 Note: Authors should make sure that C<Module::Install::PodFromEuclid> is
 installed before running C<Makefile.PL>.
 
-This module was inspired and borrows a lot from b
- C<Module::Install::ReadmeFromPod>.
+This module was inspired and borrows a lot from C<Module::Install::ReadmeFromPod>.
 
 =head1 COMMANDS
 
