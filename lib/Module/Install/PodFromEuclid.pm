@@ -77,6 +77,7 @@ L<Module::Install::ReadmeFromPod>
 use 5.006;
 use strict;
 use warnings;
+use Env qw(@INC);
 use base qw(Module::Install::Base);
 
 our $VERSION = '0.01';
@@ -88,7 +89,8 @@ sub pod_from {
    if (not defined $in_file) {
       $in_file = $self->_all_from or die "Error: Could not determine file to make pod_from";
    }
-   my @args = ($^X, '-Ilib', $in_file, '--podfile');
+   my @inc = map { ('-I', $_) } @INC; # use same -I included modules as caller
+   my @args = ($^X, @inc, $in_file, '--podfile');
    system(@args) == 0 or die "Error: Could not run command ".join(' ',@args).": $?\n";
    return 1;
 }

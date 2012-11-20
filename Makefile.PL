@@ -11,14 +11,15 @@ resources
    bugtracker 'https://rt.cpan.org/Public/Dist/Display.html?Name=Module-Install-PodFromEuclid';
    repository 'git://github.com/fangly/module-install-podfromeuclid.git';
 
+perl_version  '5.006';
+
 build_requires 'Test::More'    => 0.47; # in Perl 5.6.2
 build_requires 'File::Temp'    => 0;    # in Perl 5.6.1
 
 requires 'Module::Install'  => 1.00;
 requires 'Getopt::Euclid'   => '0.3.4';
 
-###readme_from;    # Self hosting!
-###githubmeta;
+###readme_from;
 
 clean_files 'have_make';
 
