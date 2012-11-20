@@ -11,8 +11,6 @@ resources
    bugtracker 'https://rt.cpan.org/Public/Dist/Display.html?Name=Module-Install-PodFromEuclid';
    repository 'git://github.com/fangly/module-install-podfromeuclid.git';
 
-perl_version  '5.006';
-
 build_requires 'Test::More'    => 0.47; # in Perl 5.6.2
 build_requires 'File::Temp'    => 0;    # in Perl 5.6.1
 
@@ -24,7 +22,7 @@ requires 'Getopt::Euclid'   => '0.3.4';
 clean_files 'have_make';
 
 if ( $Config{make} and can_run( $Config{make} ) ) {
-  print "'make' program available: '", $Config{make}, "'\n";
+  print "Which make program is available? ", $Config{make}, "\n";
   open my $out, '>', 'have_make' or die "$!\n";
   print $out "meep\n";
   close $out;

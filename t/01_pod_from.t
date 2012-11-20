@@ -20,7 +20,7 @@ use Config;
    print MFPL <<EOF;
 use strict;
 use inc::Module::Install;
-name 'My-Script';
+name 'my_script';
 version '0.01';
 author 'John Doe';
 abstract 'Check out my cool script';
